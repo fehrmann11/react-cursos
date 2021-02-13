@@ -10,12 +10,27 @@ const App = () => (
     <div className="App">
         <Header/>
         <Search/>
-        <Categories>
+        {/*Sección 1 */}
+        <Categories title="Mi lista">
             <Carousel>
                 <CarouselItem/>
                 <CarouselItem/>
                 <CarouselItem/>
                 <CarouselItem/>
+            </Carousel>
+        </Categories>
+        {/*Sección 2 */}
+        <Categories title="Tendencias">
+            <Carousel>
+                <CarouselItem/>
+                <CarouselItem/>
+            </Carousel>
+        </Categories>
+        {/*Sección 3 */}
+        <Categories title="Originales de Henrys video">
+            <Carousel>
+                <CarouselItem/>
+
             </Carousel>
         </Categories>
         <Footer/>
