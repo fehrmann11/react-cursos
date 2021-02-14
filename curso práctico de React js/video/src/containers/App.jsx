@@ -10,41 +10,42 @@ const App = () => {
     //Funciones o lógica dentro de los componentes
 
     //use state
-    const [videos, setVideos] = useState([]);
+    const [videos, setVideos] = useState({mylist:[],trends:[],originals:[]});
     //use efectt para ir a la fake api, y pasarsela a setVideos
     useEffect(() => {
         fetch('http://localhost:3000/initalState')
             .then(response => response.json())
             .then(data => setVideos(data));
-    },[]);
-
-    console.log(videos)
+    }, []);
 
     return (
         <div className="App">
             <Header />
             <Search />
-            {/*Sección 1 */}
-            <Categories title="Mi lista">
-                <Carousel>
-                    <CarouselItem />
-                    <CarouselItem />
-                    <CarouselItem />
-                    <CarouselItem />
-                </Carousel>
-            </Categories>
-            {/*Sección 2 */}
+            {/*Sección 1, validación si es que mi lista está vacía */}
+            {videos.mylist.length > 0 &&
+                (<Categories title="Mi lista">
+                    <Carousel>
+                        <CarouselItem />
+                    </Carousel>
+                </Categories>)
+            }
+
+            {/*Sección 2 aquí mapeamos cadá carouselItem de trends
+            {...item}=destructurar todo el contenido*/}
             <Categories title="Tendencias">
                 <Carousel>
-                    <CarouselItem />
-                    <CarouselItem />
+                    {videos.trends.map(item => 
+                        <CarouselItem key={item.id} {...item}/>
+                    )
+                    }
+                    
                 </Carousel>
             </Categories>
             {/*Sección 3 */}
             <Categories title="Originales de Henrys video">
                 <Carousel>
                     <CarouselItem />
-
                 </Carousel>
             </Categories>
             <Footer />
