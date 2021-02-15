@@ -13,3 +13,18 @@
 .Header{
   text-align: center;
 }
+
+.App{
+  text-align: center;
+  height: auto;
+}
+
+.bg-light{
+  background-color: #fafafa;
+  color: #252525;
+}
+
+.bg-dark{
+  background-color: black;
+  color:white;
+}

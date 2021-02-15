@@ -8,9 +8,9 @@ import ThemeContext from './context/ThemeContext';
 ReactDOM.render(
   <React.StrictMode>
     {/*Contexto agregado */}
-    <ThemeContext.Provider value="red">
+    {/*<ThemeContext.Provider value="red">*/}
       <App />
-    </ThemeContext.Provider>
+    {/*</ThemeContext.Provider>*/}
   </React.StrictMode>,
   document.getElementById('root')
 );
