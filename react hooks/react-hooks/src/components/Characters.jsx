@@ -11,11 +11,16 @@ const Characters = () => {
         .then(response=>response.json())
         .then(data=>setCharacters(data.results));
     },[])
-
+    console.log(characters)
     return (
+      
         <div className="Characters">
             {characters.map(character =>(
+
+                <div className="character-image" key={character.id}>
                 <h2>{character.name}</h2>
+                <img  src={character.image}/>
+                </div>
             ))}
             
         </div>
