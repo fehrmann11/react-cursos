@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useReducer } from 'react'
+import React, { useState, useEffect, useReducer, useMemo } from 'react'
 
 //rafce
 
@@ -27,6 +27,9 @@ const Characters = () => {
   //creo la variable favorites y dispatch y le paso la función y el estado inicial.
   const [favorites, dispatch] = useReducer(favoriteReducer, initialState);
 
+  //para el buscador
+  const [search, setSearch] = useState('');
+
   useEffect(() => {
     fetch('https://rickandmortyapi.com/api/character/')
       .then(response => response.json())
@@ -38,6 +41,23 @@ const Characters = () => {
     dispatch({ type: 'ADD_TO_FAVORITE', payload: favorite })
   }
 
+  const hadleSearch = event => {
+    setSearch(event.target.value);
+  }
+
+  //función de filtro con memo para recordar los valores anteriores
+  // (sin memo) const filteredUsers = characters.filter((user)=>{
+  //   return user.name.toLowerCase().includes(search.toLowerCase());
+  // })
+
+  const filteredUsers = useMemo(() => 
+    characters.filter((user) => {
+      return user.name.toLowerCase().includes(search.toLowerCase());
+    }),[characters,search]
+  )
+
+
+
 
   return (
 
@@ -45,14 +65,18 @@ const Characters = () => {
 
       {/*Mostrar los favoritos, desde la variable, el estado */
         favorites.favorites.map(favorite => (
-          <li style={{marginBottom:"1%"}} key={favorite.id}>
+          <li style={{ marginBottom: "1%" }} key={favorite.id}>
             <h2>{favorite.name}</h2>
-            <img src={favorite.image} alt={favorite.name}/>
+            <img src={favorite.image} alt={favorite.name} />
           </li>
         ))
       }
 
-      {characters.map(character => (
+      <div className="Search">
+        <input type="text" value={search} onChange={hadleSearch} />
+      </div>
+
+      {filteredUsers.map(character => (
         <div className="item" key={character.id}>
           <div className="character-image" >
             <h2>{character.name}</h2>
