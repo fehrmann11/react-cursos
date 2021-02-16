@@ -5,7 +5,7 @@
   text-align: center;
 }
 
-.character-image{
+.item{
   display: inline-block;
   margin-right: 3%;
 }
@@ -27,4 +27,9 @@
 .bg-dark{
   background-color: black;
   color:white;
+}
+
+.btnn{
+  display: block;
+
 }

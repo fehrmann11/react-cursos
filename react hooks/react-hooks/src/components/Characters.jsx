@@ -1,30 +1,70 @@
-import React, {useState,useEffect} from 'react'
+import React, { useState, useEffect, useReducer } from 'react'
 
 //rafce
 
+//se encargará de agregar a favoritos
+const initialState = {
+  favorites: []
+}
+
+//favoriteReducer, si es ADD_TO_FAVORITE, toma el estado y le agrega favorites, luego action. payload
+const favoriteReducer = (state, action) => {
+  switch (action.type) {
+    case 'ADD_TO_FAVORITE':
+      return {
+        ...state,
+        favorites: [...state.favorites, action.payload]
+      };
+
+    default:
+      return state;
+  }
+}
+
 const Characters = () => {
 
-    const [characters,setCharacters] = useState([]);
+  const [characters, setCharacters] = useState([]);
+  //creo la variable favorites y dispatch y le paso la función y el estado inicial.
+  const [favorites, dispatch] = useReducer(favoriteReducer, initialState);
 
-    useEffect(()=>{
-        fetch('https://rickandmortyapi.com/api/character/')
-        .then(response=>response.json())
-        .then(data=>setCharacters(data.results));
-    },[])
-    console.log(characters)
-    return (
-      
-        <div className="Characters">
-            {characters.map(character =>(
+  useEffect(() => {
+    fetch('https://rickandmortyapi.com/api/character/')
+      .then(response => response.json())
+      .then(data => setCharacters(data.results));
+  }, [])
 
-                <div className="character-image" key={character.id}>
-                <h2>{character.name}</h2>
-                <img  src={character.image}/>
-                </div>
-            ))}
-            
+  //hago el handleClick y hago un dispatch del type (el cual es al action.type de arriba) y el payload de favorite
+  const handleClick = favorite => {
+    dispatch({ type: 'ADD_TO_FAVORITE', payload: favorite })
+  }
+
+
+  return (
+
+    <div className="Characters">
+
+      {/*Mostrar los favoritos, desde la variable, el estado */
+        favorites.favorites.map(favorite => (
+          <li style={{marginBottom:"1%"}} key={favorite.id}>
+            <h2>{favorite.name}</h2>
+            <img src={favorite.image} alt={favorite.name}/>
+          </li>
+        ))
+      }
+
+      {characters.map(character => (
+        <div className="item" key={character.id}>
+          <div className="character-image" >
+            <h2>{character.name}</h2>
+            <img src={character.image} />
+            {/*Aquí hago una arrow function para enviar el character */}
+            <button className="btnn" type="button" onClick={() => handleClick(character)}>Agregar a favoritos</button>
+          </div>
         </div>
-    )
+      ))}
+
+    </div>
+  )
 }
 
 
