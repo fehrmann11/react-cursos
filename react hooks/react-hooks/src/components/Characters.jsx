@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useReducer, useMemo } from 'react'
+import React, { useState, useEffect, useReducer, useMemo, useRef } from 'react'
 
 //rafce
 
@@ -30,6 +30,9 @@ const Characters = () => {
   //para el buscador
   const [search, setSearch] = useState('');
 
+  //useRef
+  const searchInput = useRef(null);
+
   useEffect(() => {
     fetch('https://rickandmortyapi.com/api/character/')
       .then(response => response.json())
@@ -41,8 +44,10 @@ const Characters = () => {
     dispatch({ type: 'ADD_TO_FAVORITE', payload: favorite })
   }
 
-  const hadleSearch = event => {
-    setSearch(event.target.value);
+  //no es necesario usar event.target.value, esto sirve para cuando tenemos múltiples target
+  const hadleSearch = () => {
+    console.log(searchInput)
+    setSearch(searchInput.current.value);
   }
 
   //función de filtro con memo para recordar los valores anteriores
@@ -73,7 +78,7 @@ const Characters = () => {
       }
 
       <div className="Search">
-        <input type="text" value={search} onChange={hadleSearch} />
+        <input type="text" value={search} ref={searchInput} onChange={hadleSearch} />
       </div>
 
       {filteredUsers.map(character => (
