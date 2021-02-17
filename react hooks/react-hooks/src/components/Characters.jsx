@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useReducer, useMemo, useRef } from 'react'
+import React, { useState, useEffect, useReducer, useMemo, useRef, useCallback } from 'react'
+import Search from './Search';
 
 //rafce
 
@@ -45,10 +46,18 @@ const Characters = () => {
   }
 
   //no es necesario usar event.target.value, esto sirve para cuando tenemos múltiples target
-  const hadleSearch = () => {
-    console.log(searchInput)
-    setSearch(searchInput.current.value);
-  }
+  // const hadleSearch = () => {
+  //   console.log(searchInput)
+  //   setSearch(searchInput.current.value);
+  // }
+
+  //no cambia por tanto no es necesario pasarle algo al array
+  const hadleSearch = useCallback(
+    () => {
+      setSearch(searchInput.current.value)
+    },
+    [],
+  )
 
   //función de filtro con memo para recordar los valores anteriores
   // (sin memo) const filteredUsers = characters.filter((user)=>{
@@ -77,9 +86,9 @@ const Characters = () => {
         ))
       }
 
-      <div className="Search">
-        <input type="text" value={search} ref={searchInput} onChange={hadleSearch} />
-      </div>
+      {/*Buscador componentizado */}
+
+      <Search search={search} searchInput={searchInput} hadleSearch={hadleSearch}/>
 
       {filteredUsers.map(character => (
         <div className="item" key={character.id}>
