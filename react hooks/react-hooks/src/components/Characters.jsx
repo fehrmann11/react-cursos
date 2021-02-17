@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useReducer, useMemo, useRef, useCallback } from 'react'
+import React, { useState,  useReducer, useMemo, useRef, useCallback } from 'react'
 import Search from './Search';
+import useCharacters from './hooks/useCharacter';
 
 //rafce
 
@@ -24,7 +25,7 @@ const favoriteReducer = (state, action) => {
 
 const Characters = () => {
 
-  const [characters, setCharacters] = useState([]);
+ 
   //creo la variable favorites y dispatch y le paso la función y el estado inicial.
   const [favorites, dispatch] = useReducer(favoriteReducer, initialState);
 
@@ -34,11 +35,10 @@ const Characters = () => {
   //useRef
   const searchInput = useRef(null);
 
-  useEffect(() => {
-    fetch('https://rickandmortyapi.com/api/character/')
-      .then(response => response.json())
-      .then(data => setCharacters(data.results));
-  }, [])
+  //llamada a la API desde el archivo Characters.jsx
+  const API = 'https://rickandmortyapi.com/api/character';
+  const characters = useCharacters(API);
+
 
   //hago el handleClick y hago un dispatch del type (el cual es al action.type de arriba) y el payload de favorite
   const handleClick = favorite => {
