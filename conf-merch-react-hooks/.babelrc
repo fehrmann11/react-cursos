@@ -1,0 +1,7 @@
+//para la sintaxis de react
+{
+    "presets":[
+        "@babel/preset-env",
+        "@babel/preset-react"
+    ]
+}
