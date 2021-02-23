@@ -1,10 +1,11 @@
-import React from 'react'
+import React from 'react';
+import initialState from '../initialState';
+import Products from '../component/Products';
 
+//Este tiene la api
 const Home = () => {
     return (
-        <h1>
-            Home
-        </h1>
+        <Products products={initialState.products} />
     )
 }
 
