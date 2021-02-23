@@ -7,6 +7,7 @@ import Information from '../containers/Information';
 import Payment from '../containers/Payment';
 import Success from '../containers/Success';
 import NotFound from '../containers/NotFound';
+import Layout from '../component/Layout';
 
 const App = () => {
     return (
@@ -16,18 +17,21 @@ const App = () => {
         
         */
         <BrowserRouter>
-            <Switch>
-                <Route exact path="/" component={Home} />
-                {/*Detalle de los productos */}
-                <Route exact path="/checkout" component={Checkout} />
-                {/*Información de que va a comprar */}
-                <Route exact path="/checkout/information" component={Information} />
-                {/*Información del pago */}
-                <Route exact path="/checkout/payment" component={Payment} />
-                {/*Pago exitoso */}
-                <Route exact path="/checkout/success" component={Success} />
-                <Route component={NotFound} />
-            </Switch>
+            <Layout>
+                {/*Este es el children de Layout */}
+                <Switch>
+                    <Route exact path="/" component={Home} />
+                    {/*Detalle de los productos */}
+                    <Route exact path="/checkout" component={Checkout} />
+                    {/*Información de que va a comprar */}
+                    <Route exact path="/checkout/information" component={Information} />
+                    {/*Información del pago */}
+                    <Route exact path="/checkout/payment" component={Payment} />
+                    {/*Pago exitoso */}
+                    <Route exact path="/checkout/success" component={Success} />
+                    <Route component={NotFound} />
+                </Switch>
+            </Layout>
         </BrowserRouter>
     )
 }
