@@ -21,6 +21,7 @@ const useInitialState = () =>{
             //trae lo que tiene cart del estado, agregale lo que esté en el paylad (lo que le estoy mandando)
             cart: [...state.cart, payload]
         });
+        console.log(payload,"soy payl")
     }
 
     /*Lógica remover el item */
