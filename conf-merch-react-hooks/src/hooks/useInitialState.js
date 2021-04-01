@@ -25,11 +25,11 @@ const useInitialState = () =>{
     }
 
     /*Lógica remover el item */
-    const removeFromCart = payload =>{
+    const removeFromCart = (_payload,indexRemove) =>{
         setState({
             ...state,
             //filtra por items que sean distintos al que le mandemos
-            cart: state.cart.filter(items=>items.id !== payload.id),
+            cart: state.cart.filter((_item,indexCurrent)=>indexCurrent !== indexRemove),
         })
     }
     return {
