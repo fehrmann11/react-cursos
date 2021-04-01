@@ -31,11 +31,20 @@ const useInitialState = () =>{
             //filtra por items que sean distintos al que le mandemos
             cart: state.cart.filter((_item,indexCurrent)=>indexCurrent !== indexRemove),
         })
+    };
+    /*Función de añadir el pago */
+    const addToBuyer= payload =>{
+        setState({
+            ...state,
+            buyer:[...state.buyer,payload]
+        })
     }
+
     return {
         addToCart,
         removeFromCart,
         state,
+        addToBuyer,
     };
 };
 
