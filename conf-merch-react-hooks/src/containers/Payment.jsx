@@ -3,6 +3,7 @@ import {PayPalButton} from 'react-paypal-button';
 import AppContext from '../context/AppContext';
 import { useHistory } from 'react-router-dom';
 import '../styles/components/Payment.css';
+import data from '../../data';
 
 
 //npm install react-paypal-button --save
@@ -13,7 +14,7 @@ const Payment = () => {
     const history = useHistory();
 
     const paypalOptions = {
-        clientId: 'access_token$sandbox$6ktmkbn8hr39xw3t$68bb1ed1566ef857b4a97f1aa2038e51',
+        clientId: data.api.paypal,
         intent:'capture',
         currency:'USD'
     }
