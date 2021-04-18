@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 import AppContext from '../context/AppContext';
 import '../styles/components/Checkout.css';
 
@@ -10,8 +11,8 @@ const Checkout = () => {
 
     /*Función que se encarga de eliminar del 
     carrito */
-    const handleRemove = (product,i) => () => {
-        removeFromCart(product,i);
+    const handleRemove = (product, i) => () => {
+        removeFromCart(product, i);
     };
     /*Función que se encarga de sumar 
     todo lo que está en el carrito */
@@ -32,36 +33,41 @@ const Checkout = () => {
         return sum;
     }
     return (
-        <div className="Checkout">
-            <div className="Checout-content">
-                {cart.length >0 ? <h3>Lista de pedidos:</h3>: <h3>Sin pedidos....</h3>}
-                {/* Lista de pedidos */}
-                {cart.map((item,i)=>(
-                    <div className="Checkout-item">
-                    <div className="Checkout-element">
-                        <h4>{item.title}</h4>
-                        <span>${item.price}</span>
-                    </div>
-                    <button type="button" onClick={handleRemove(item,i)}>
-                        <i className="fas fa-trash-alt" />
-                    </button>
+        <>
+            <Helmet>
+                <title>Lista de pedidos - Conf Merch</title>
+            </Helmet>
+            <div className="Checkout">
+                <div className="Checout-content">
+                    {cart.length > 0 ? <h3>Lista de pedidos:</h3> : <h3>Sin pedidos....</h3>}
+                    {/* Lista de pedidos */}
+                    {cart.map((item, i) => (
+                        <div className="Checkout-item">
+                            <div className="Checkout-element">
+                                <h4>{item.title}</h4>
+                                <span>${item.price}</span>
+                            </div>
+                            <button type="button" onClick={handleRemove(item, i)}>
+                                <i className="fas fa-trash-alt" />
+                            </button>
+                        </div>
+
+                    ))}
+
                 </div>
+                {/* Cuando tiene algo suma los pedidos */}
+                {cart.length > 0 && (
+                    <div className="Checkout-sidebar">
+                        <h3>{`Precio total: $ ${handleSumTotal()}`}</h3>
+                        <Link to="/checkout/information">
+                            <button type="button">Continuar Pedido</button>
+                        </Link>
 
-                ))}
-                
-            </div>
-            {/* Cuando tiene algo suma los pedidos */}
-            {cart.length > 0 && (
-                <div className="Checkout-sidebar">
-                <h3>{`Precio total: $ ${handleSumTotal()}`}</h3>
-                <Link to="/checkout/information">
-                    <button type="button">Continuar Pedido</button>
-                </Link>
+                    </div>
+                )}
 
             </div>
-            )}
-            
-        </div>
+        </>
     )
 }
 
