@@ -15,13 +15,17 @@ import useInitialState from '../hooks/useInitialState';
 const App = () => {
     //Retorna Varios elementos y las funciones que necesitamos
     const initialState = useInitialState();
+    const isEmpty = Object.keys(initialState.state).length;
     return (
         /*BrowserRouter encapsular toda la navegación de la aplicación
         Switch: mostrar el primero que coincida con exactitud la ruta que uno elige
         Route: La ruta
         
         */      
-        <AppContext.Provider value={ initialState}>
+
+        <>
+        {isEmpty >0 ? (
+            <AppContext.Provider value={ initialState}>
             <BrowserRouter>
                 <Layout>
                     {/*Este es el children de Layout */}
@@ -40,6 +44,9 @@ const App = () => {
                 </Layout>
             </BrowserRouter>
         </AppContext.Provider>
+        ): <h1>Cargando.....</h1>}
+        
+        </>
     )
 }
 

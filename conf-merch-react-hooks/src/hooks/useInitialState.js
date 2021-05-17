@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useState,useEffect} from 'react';
 import initialState from '../initialState';
 /*
 -Guardará el initialState o los datos de la api
@@ -8,9 +8,21 @@ import initialState from '../initialState';
 Se encarga de manejar el estado, recibirlas y generar funciones que actualizan
 según el caso, agregar y eliminar del carro
 */
+
+import axios from 'axios';
+
+const API = 'http://localhost:1337/products';
+
 const useInitialState = () =>{
     //destructuración del estado
     const [state,setState] = useState(initialState);
+    const [products,setProducts] = useState([]);
+
+    //llamo a la api, para poner los productos, es importante saber que cuando inicia la aplicación lo llama.
+    useEffect(async() => {
+        const response = await axios(API);
+        setProducts(response.data);
+    }, [])
 
     /*lógica de agregar al carrito
     -Separar la información que recibe y separarlo al estado
@@ -52,7 +64,8 @@ const useInitialState = () =>{
         removeFromCart,
         state,
         addToBuyer,
-        addNewOrder
+        addNewOrder,
+        products
     };
 };
 

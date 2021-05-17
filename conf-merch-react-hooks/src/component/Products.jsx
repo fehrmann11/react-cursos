@@ -6,9 +6,7 @@ import AppContext from '../context/AppContext';
 //Data general (todo el array)
 const Products = () => {
     //La data en el estado inicial
-    const {state,addToCart} = useContext(AppContext);
-    //sacar los productos del estado
-    const {products} = state;
+    const {products,addToCart} = useContext(AppContext);
     console.log(products,"soy product")
     //función que maneja agregar al carrito
     const handleAddToCart =product=> () => {
